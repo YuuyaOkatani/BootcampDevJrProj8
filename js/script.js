@@ -1,3 +1,6 @@
+var users = [];
+
+
 function search() {
 
     
@@ -31,8 +34,11 @@ function search() {
             cell.innerHTML +=  doc.a || ''; 
         }
         
-        // Adiciona imagens pesquisadas anteriomente.
-        document.getElementById('avatar_url2').innerHTML += doc5 || '';  ; 
+        // Adiciona imagens pesquisadas anteriomente (Se for novo).
+        isNew(user)? save(user) : null; 
+        console.log(users)
+        
+        
 
 
     }).fail(() => {
@@ -48,6 +54,15 @@ function search() {
     })
 }
 
+function save(user){
+    document.getElementById('avatar_url2').innerHTML += doc5 || ''; 
+    users.push(user)
+}
+
+function isNew(user){
+    return users.filter((u) => u.login === user.login).length == 0;
+
+}
 function change(user){
 
     
@@ -55,10 +70,10 @@ function change(user){
 
     doc1 = `<div>${user.name}</div>` || ''
     doc2 = `<div>${user.html_url}</div>` || ''
-    doc3 = `<img src="${user.avatar_url}" width="220" height="220" class="shadow rounded" alt="${user.name}">` ||''
+    doc3 = `<a href="${user.html_url}" ><img src="${user.avatar_url}" width="220" height="220" class="shadow rounded" alt="${user.name}"></a>` ||''
     doc4 = `<div> ${user.company? user.company : ''}</div>`
-    doc5 = `<img src="${user.avatar_url}" width="110" height="110" class="shadow rounded m-5" alt="${user.name}">` || ''
-   
+    doc5 = `<a href="${user.html_url}" > <img src="${user.avatar_url}" width="110" height="110" class="shadow rounded m-5" alt="${user.name}"> </a> ` || ''
+    // Me divertir um pouco... :>
 
 
 }
